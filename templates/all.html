@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='stylesheets/all.css') }}">
+  <script type="text/javascript">
+  	function allowDrop(ev) {
+  ev.preventDefault();
+}
+
+function clk(ev){
+  ind = ev.target.id;
+  //console.log(ind, typeof(i));
+  var txe = {{ fns|tojson }};
+  tex = "";
+  //console.log(txe[ind]);
+  //console.log(txe[ind][ind][3]);
+  for (i = 0; i < txe[ind][ind].length; i++)
+  {
+    tex+=txe[ind][ind][i];
+    tex+="\n";
+  }
+  //console.log(tex);
+  document.getElementById("tx").innerHTML = tex
+  /*console.log(el,el.text);
+  el = "Changed";*/
+  
+
+}
+
+function drag(ev) {
+	
+	console.log(ev.target.id);
+    ev.dataTransfer.setData("text", ev.target.id);
+}
+
+function drop(ev) {
+  ev.preventDefault();
+  var data = ev.dataTransfer.getData("text");
+  console.log(data);
+  var temp = document.getElementById(data);
+  console.log(temp);
+  ev.target.appendChild(temp);
+}
+
+</script>
+</head>
+<body>
+
+
+<!-- <div id="drawing" ondrop="drop(event)" ondragover="allowDrop(event)">
+	<h1> Drag Functions	</h1>
+</div> -->
+
+<!-- <div id="functions">
+ -->
+ <form id="main_form" action="{{ url_for('handle_data') }}" method="post">
+    <p> Event Number </p>
+    <input type="int" name="event_number"><br>
+    <p> Function Number </p>  
+    <input type="int" name="function_number">
+    <p> Line Number </p>
+    <input type="int" name="line_number"> <br>
+    <p> Indent Level </p>
+    <input type="int" name="indent_level"> <br>
+    <input type="submit" name="Submit">
+</form>
+
+ <form id="final_form" action="{{ url_for('done_log') }}" method="post">
+  <input type="submit" name="Submit">
+ </form>
+
+
+
+<div id="show_function">
+  <p id='tx'> Hello </p>
+</div>
+
+
+
+<ul id="funcList">
+
+<h1>Functions</h1>
+<script type="text/javascript">
+
+
+var cars = {{ res|tojson }};
+var i, len, text;
+for (i = 0, len = cars["result"].length, text = ""; i < len; i++) {
+  text += cars["result"][i] + "<br>";
+  var x = document.createElement("LI");
+  var t = document.createTextNode(cars["result"][i]);
+  x.setAttribute('id', i);
+  x.setAttribute('draggable', true);
+  x.setAttribute('ondragstart', "drag(event)")
+  x.setAttribute('onclick',"clk(event)")
+  x.appendChild(t);
+  document.getElementById("funcList").appendChild(x);
+}
+
+</script>
+</ul>
+<!-- </div> -->
+
+
+<!-- <div id="events"> -->
+
+<ol id="eveList">
+<h1>Events</h1>
+<script type="text/javascript">
+
+
+var cars = {{ evs|tojson }};
+var i, len, text;
+for (i = 0, len = cars["events"].length, text = ""; i < len; i++) {
+  text += cars["events"][i] + "<br>";
+  var x = document.createElement("LI");
+  var t = document.createTextNode(cars["events"][i]);
+  x.setAttribute('id', i+"evs");
+  x.setAttribute('draggable', true);
+  x.setAttribute('ondragstart', "drag(event)")
+  x.appendChild(t);
+  document.getElementById("eveList").appendChild(x);
+}
+
+</script>
+</ol>
+<!-- </div>
+ -->
+</body>
+</html>
+
+
+

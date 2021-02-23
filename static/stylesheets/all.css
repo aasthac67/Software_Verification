@@ -1,0 +1,116 @@
+@import "compass/css3";
+
+* {box-sizing: border-box;}
+
+#main_form{
+  position: absolute;
+  height: 30%;
+  width: 30%;
+  bottom: 10%;
+  right: 35%;
+}
+
+#final_form{
+  position: absolute;
+  height: 10%;
+  width: 10%;
+  bottom: 25%;
+  right: 25%;
+}
+body {
+  padding: 20px;
+}
+p{
+  white-space: pre;
+  font-size: 10px;
+}
+#show_function{
+  position: absolute;
+  height: 50%;
+  width: 50%;
+  bottom: 50%;
+  right: 22%;
+  overflow: scroll;
+  // Again, this is where the magic happens
+  -webkit-overflow-scrolling: touch;
+
+}
+/*#drawing {
+  width: 350px;
+  height: 70px;
+  padding: 10px;
+  border: 1px solid #aaaaaa;
+}
+
+#drawing {
+  position: absolute;
+  height: 30%;
+  width: 30%;
+  bottom: 35%;
+  right: 35%;
+}*/
+.button5 {
+  position: absolute;
+  border-radius: 50%;
+  height: 100px;
+  width: 100px;
+  top: 200px;
+  right:350px;
+}
+ul {
+  white-space: pre;
+  position: absolute;
+  background-color: yellow;
+  height: 100%;
+  width: 20%;
+  bottom: 0px;
+  left: 20px;
+  right: 20px;
+  overflow: scroll;
+  margin: 0;
+  padding: 0;
+  
+  border: 2px solid #ccc;
+  
+  font-size: 12px;
+  font-family: Arial, sans-serif;
+  
+  // Again, this is where the magic happens
+  -webkit-overflow-scrolling: touch;
+}
+
+ol {
+  white-space: pre;
+  position: absolute;
+  background-color: yellow;
+  height: 100%;
+  width: 20%;
+  bottom: 0px;
+  right: 0px;
+  overflow: scroll;
+  margin: 0;
+  padding: 0;
+  
+  border: 2px solid #ccc;
+  
+  font-size: 12px;
+  font-family: Arial, sans-serif;
+  
+  // Again, this is where the magic happens
+  -webkit-overflow-scrolling: touch;
+}
+
+li {
+  white-space: pre;
+  padding: 40px 20px;
+  
+  border-bottom: 1px solid #ccc;
+  
+  &:last-child {
+    border-bottom: none;
+  }
+  
+  &:nth-child(even) {
+    background: #f8f8f8;
+  }
+}

@@ -1,0 +1,18 @@
+digraph state_automaton {
+	center = true;
+	size = "7,11";
+	{node [shape = plaintext, style=invis, label=""] "__init_CanIssue"};
+	{node [shape = ellipse] "CanIssue"};
+	{node [shape = plaintext] "CanIssue"};
+	{node [shape = ellipse] "CannotIssue"};
+	{node [shape = plaintext] "CannotIssue"};
+	"__init_CanIssue" -> "CanIssue";
+	"CanIssue" [label = "CanIssue", color = green3]; 
+	"CanIssue" -> "CannotIssue" [ label = "LateSubmission" ];
+	"CannotIssue" [label = "CannotIssue", color = green3]; 
+	"CannotIssue" -> "CanIssue" [ label = "PayFine" ];
+	{ rank = min ;
+		"__init_CanIssue";
+		"CanIssue";
+	}
+}

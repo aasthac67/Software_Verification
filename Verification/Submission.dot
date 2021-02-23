@@ -1,0 +1,18 @@
+digraph state_automaton {
+	center = true;
+	size = "7,11";
+	{node [shape = ellipse] "NotSubmitted"};
+	{node [shape = plaintext] "NotSubmitted"};
+	{node [shape = plaintext, style=invis, label=""] "__init_Submitted"};
+	{node [shape = ellipse] "Submitted"};
+	{node [shape = plaintext] "Submitted"};
+	"__init_Submitted" -> "Submitted";
+	"NotSubmitted" [label = "NotSubmitted", color = green3]; 
+	"NotSubmitted" -> "Submitted" [ label = "LateSubmission\nTimelySubmission" ];
+	"Submitted" [label = "Submitted", color = green3]; 
+	"Submitted" -> "NotSubmitted" [ label = "BookIssued" ];
+	{ rank = min ;
+		"__init_Submitted";
+		"Submitted";
+	}
+}

@@ -1,0 +1,369 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Module xmlns="http://waters.sourceforge.net/xsd/module" xmlns:B="http://waters.sourceforge.net/xsd/base" Name="newdynticks">
+<EventDeclList>
+<EventDecl Kind="CONTROLLABLE" Name="LateSubmission"/>
+<EventDecl Kind="CONTROLLABLE" Name="TimelySubmission"/>
+<EventDecl Kind="CONTROLLABLE" Name="BookIssued"/>
+<EventDecl Kind="CONTROLLABLE" Name="PayFine"/>
+<EventDecl Kind="PROPOSITION" Name=":accepting"/>
+</EventDeclList>
+<ComponentList>
+<SimpleComponent Kind="PLANT" Name="Submission">
+<Graph>
+<NodeList>
+<SimpleNode Initial="true" Name="NotSubmitted">
+<PointGeometry>
+<Point X="192" Y="176"/>
+</PointGeometry>
+<LabelGeometry Anchor="NW">
+<Point X="-61" Y="15"/>
+</LabelGeometry>
+</SimpleNode>
+<SimpleNode Name="Submitted">
+<PointGeometry>
+<Point X="384" Y="176"/>
+</PointGeometry>
+<LabelGeometry Anchor="NW">
+<Point X="0" Y="10"/>
+</LabelGeometry>
+</SimpleNode>
+</NodeList>
+<EdgeList>
+<Edge Source="NotSubmitted" Target="Submitted">
+<LabelBlock>
+<SimpleIdentifier Name="LateSubmission"/>
+<SimpleIdentifier Name="TimelySubmission"/>
+<LabelGeometry Anchor="NW">
+<Point X="-40" Y="-43"/>
+</LabelGeometry>
+</LabelBlock>
+<SplineGeometry>
+<Point X="288" Y="160"/>
+</SplineGeometry>
+</Edge>
+<Edge Source="Submitted" Target="NotSubmitted">
+<LabelBlock>
+<SimpleIdentifier Name="BookIssued"/>
+</LabelBlock>
+<SplineGeometry>
+<Point X="291" Y="209"/>
+</SplineGeometry>
+</Edge>
+</EdgeList>
+</Graph>
+</SimpleComponent>
+<SimpleComponent Kind="PLANT" Name="Issue">
+<Graph>
+<NodeList>
+<SimpleNode Initial="true" Name="CanIssue">
+<PointGeometry>
+<Point X="176" Y="176"/>
+</PointGeometry>
+<LabelGeometry Anchor="NW">
+<Point X="0" Y="10"/>
+</LabelGeometry>
+</SimpleNode>
+<SimpleNode Name="CannotIssue">
+<PointGeometry>
+<Point X="384" Y="176"/>
+</PointGeometry>
+<LabelGeometry Anchor="NW">
+<Point X="0" Y="10"/>
+</LabelGeometry>
+</SimpleNode>
+</NodeList>
+<EdgeList>
+<Edge Source="CanIssue" Target="CannotIssue">
+<LabelBlock>
+<SimpleIdentifier Name="LateSubmission"/>
+<LabelGeometry Anchor="NW">
+<Point X="-48" Y="-28"/>
+</LabelGeometry>
+</LabelBlock>
+<SplineGeometry>
+<Point X="280" Y="160"/>
+</SplineGeometry>
+</Edge>
+<Edge Source="CannotIssue" Target="CanIssue">
+<LabelBlock>
+<SimpleIdentifier Name="PayFine"/>
+<LabelGeometry Anchor="NW">
+<Point X="-22" Y="9"/>
+</LabelGeometry>
+</LabelBlock>
+<SplineGeometry>
+<Point X="280" Y="192"/>
+</SplineGeometry>
+</Edge>
+</EdgeList>
+</Graph>
+</SimpleComponent>
+<SimpleComponent Kind="PLANT" Name="Fine">
+<Graph>
+<NodeList>
+<SimpleNode Name="FinePending">
+<PointGeometry>
+<Point X="160" Y="176"/>
+</PointGeometry>
+<LabelGeometry Anchor="NW">
+<Point X="0" Y="10"/>
+</LabelGeometry>
+</SimpleNode>
+<SimpleNode Initial="true" Name="FineNotPending">
+<PointGeometry>
+<Point X="336" Y="176"/>
+</PointGeometry>
+<LabelGeometry Anchor="NW">
+<Point X="0" Y="10"/>
+</LabelGeometry>
+</SimpleNode>
+</NodeList>
+<EdgeList>
+<Edge Source="FinePending" Target="FineNotPending">
+<LabelBlock>
+<SimpleIdentifier Name="PayFine"/>
+<LabelGeometry Anchor="NW">
+<Point X="-21" Y="-29"/>
+</LabelGeometry>
+</LabelBlock>
+<SplineGeometry>
+<Point X="248" Y="160"/>
+</SplineGeometry>
+</Edge>
+<Edge Source="FineNotPending" Target="FinePending">
+<LabelBlock>
+<SimpleIdentifier Name="LateSubmission"/>
+<LabelGeometry Anchor="NW">
+<Point X="-39" Y="12"/>
+</LabelGeometry>
+</LabelBlock>
+<SplineGeometry>
+<Point X="248" Y="192"/>
+</SplineGeometry>
+</Edge>
+</EdgeList>
+</Graph>
+</SimpleComponent>
+<SimpleComponent Kind="SPEC" Name="Spec1">
+<Graph>
+<NodeList>
+<SimpleNode Initial="true" Name="CanIssue">
+<PointGeometry>
+<Point X="160" Y="192"/>
+</PointGeometry>
+<LabelGeometry Anchor="NW">
+<Point X="-36" Y="13"/>
+</LabelGeometry>
+</SimpleNode>
+<SimpleNode Name="NotSubmitted">
+<PointGeometry>
+<Point X="336" Y="192"/>
+</PointGeometry>
+<LabelGeometry Anchor="NW">
+<Point X="0" Y="10"/>
+</LabelGeometry>
+</SimpleNode>
+</NodeList>
+<EdgeList>
+<Edge Source="CanIssue" Target="NotSubmitted">
+<LabelBlock>
+<SimpleIdentifier Name="BookIssued"/>
+<LabelGeometry Anchor="NW">
+<Point X="-35" Y="-30"/>
+</LabelGeometry>
+</LabelBlock>
+<SplineGeometry>
+<Point X="248" Y="176"/>
+</SplineGeometry>
+</Edge>
+<Edge Source="NotSubmitted" Target="CanIssue">
+<LabelBlock>
+<SimpleIdentifier Name="TimelySubmission"/>
+<LabelGeometry Anchor="NW">
+<Point X="-39" Y="14"/>
+</LabelGeometry>
+</LabelBlock>
+<SplineGeometry>
+<Point X="248" Y="208"/>
+</SplineGeometry>
+</Edge>
+</EdgeList>
+</Graph>
+</SimpleComponent>
+<SimpleComponent Kind="PLANT" Name="Fine||Issue||Spec1||Submission">
+<Graph>
+<NodeList>
+<SimpleNode Initial="true" Name="FineNotPending.CanIssue.CanIssue.NotSubmitted">
+<EventList>
+<SimpleIdentifier Name=":accepting"/>
+</EventList>
+<PointGeometry>
+<Point X="55" Y="59"/>
+</PointGeometry>
+<LabelGeometry Anchor="NW">
+<Point X="5" Y="5"/>
+</LabelGeometry>
+</SimpleNode>
+<SimpleNode Name="FineNotPending.CanIssue.CanIssue.Submitted">
+<EventList>
+<SimpleIdentifier Name=":accepting"/>
+</EventList>
+<PointGeometry>
+<Point X="218" Y="210"/>
+</PointGeometry>
+<LabelGeometry Anchor="NW">
+<Point X="-184" Y="40"/>
+</LabelGeometry>
+</SimpleNode>
+<SimpleNode Name="FineNotPending.CanIssue.NotSubmitted.NotSubmitted">
+<EventList>
+<SimpleIdentifier Name=":accepting"/>
+</EventList>
+<PointGeometry>
+<Point X="311" Y="206"/>
+</PointGeometry>
+<LabelGeometry Anchor="NW">
+<Point X="11" Y="-15"/>
+</LabelGeometry>
+</SimpleNode>
+<SimpleNode Name="FineNotPending.CanIssue.NotSubmitted.Submitted">
+<EventList>
+<SimpleIdentifier Name=":accepting"/>
+</EventList>
+<PointGeometry>
+<Point X="524" Y="302"/>
+</PointGeometry>
+<LabelGeometry Anchor="NW">
+<Point X="5" Y="5"/>
+</LabelGeometry>
+</SimpleNode>
+<SimpleNode Name="FinePending.CannotIssue.CanIssue.Submitted">
+<EventList>
+<SimpleIdentifier Name=":accepting"/>
+</EventList>
+<PointGeometry>
+<Point X="154" Y="114"/>
+</PointGeometry>
+<LabelGeometry Anchor="NW">
+<Point X="-159" Y="25"/>
+</LabelGeometry>
+</SimpleNode>
+<SimpleNode Name="FinePending.CannotIssue.NotSubmitted.NotSubmitted">
+<EventList>
+<SimpleIdentifier Name=":accepting"/>
+</EventList>
+<PointGeometry>
+<Point X="245" Y="109"/>
+</PointGeometry>
+<LabelGeometry Anchor="NW">
+<Point X="5" Y="5"/>
+</LabelGeometry>
+</SimpleNode>
+<SimpleNode Name="FinePending.CannotIssue.NotSubmitted.Submitted">
+<EventList>
+<SimpleIdentifier Name=":accepting"/>
+</EventList>
+<PointGeometry>
+<Point X="437" Y="264"/>
+</PointGeometry>
+<LabelGeometry Anchor="NW">
+<Point X="5" Y="5"/>
+</LabelGeometry>
+</SimpleNode>
+</NodeList>
+<EdgeList>
+<Edge Source="FineNotPending.CanIssue.CanIssue.NotSubmitted" Target="FinePending.CannotIssue.CanIssue.Submitted">
+<LabelBlock>
+<SimpleIdentifier Name="LateSubmission"/>
+<LabelGeometry Anchor="NW">
+<Point X="-59" Y="10"/>
+</LabelGeometry>
+</LabelBlock>
+</Edge>
+<Edge Source="FineNotPending.CanIssue.CanIssue.Submitted" Target="FineNotPending.CanIssue.NotSubmitted.NotSubmitted">
+<LabelBlock>
+<SimpleIdentifier Name="BookIssued"/>
+<LabelGeometry Anchor="NW">
+<Point X="0" Y="10"/>
+</LabelGeometry>
+</LabelBlock>
+<SplineGeometry>
+<Point X="265" Y="224"/>
+</SplineGeometry>
+</Edge>
+<Edge Source="FineNotPending.CanIssue.NotSubmitted.NotSubmitted" Target="FineNotPending.CanIssue.CanIssue.Submitted">
+<LabelBlock>
+<SimpleIdentifier Name="TimelySubmission"/>
+<LabelGeometry Anchor="NW">
+<Point X="0" Y="10"/>
+</LabelGeometry>
+</LabelBlock>
+<SplineGeometry>
+<Point X="265" Y="202"/>
+</SplineGeometry>
+</Edge>
+<Edge Source="FineNotPending.CanIssue.NotSubmitted.NotSubmitted" Target="FinePending.CannotIssue.NotSubmitted.Submitted">
+<LabelBlock>
+<SimpleIdentifier Name="LateSubmission"/>
+<LabelGeometry Anchor="NW">
+<Point X="0" Y="10"/>
+</LabelGeometry>
+</LabelBlock>
+</Edge>
+<Edge Source="FinePending.CannotIssue.CanIssue.Submitted" Target="FineNotPending.CanIssue.CanIssue.Submitted">
+<LabelBlock>
+<SimpleIdentifier Name="PayFine"/>
+<LabelGeometry Anchor="NW">
+<Point X="0" Y="10"/>
+</LabelGeometry>
+</LabelBlock>
+<SplineGeometry>
+<Point X="180" Y="164"/>
+</SplineGeometry>
+</Edge>
+<Edge Source="FinePending.CannotIssue.CanIssue.Submitted" Target="FinePending.CannotIssue.NotSubmitted.NotSubmitted">
+<LabelBlock>
+<SimpleIdentifier Name="BookIssued"/>
+<LabelGeometry Anchor="NW">
+<Point X="0" Y="10"/>
+</LabelGeometry>
+</LabelBlock>
+<SplineGeometry>
+<Point X="198" Y="117"/>
+</SplineGeometry>
+</Edge>
+<Edge Source="FinePending.CannotIssue.NotSubmitted.NotSubmitted" Target="FineNotPending.CanIssue.NotSubmitted.NotSubmitted">
+<LabelBlock>
+<SimpleIdentifier Name="PayFine"/>
+<LabelGeometry Anchor="NW">
+<Point X="0" Y="10"/>
+</LabelGeometry>
+</LabelBlock>
+<SplineGeometry>
+<Point X="284" Y="153"/>
+</SplineGeometry>
+</Edge>
+<Edge Source="FinePending.CannotIssue.NotSubmitted.NotSubmitted" Target="FinePending.CannotIssue.CanIssue.Submitted">
+<LabelBlock>
+<SimpleIdentifier Name="TimelySubmission"/>
+<LabelGeometry Anchor="NW">
+<Point X="0" Y="10"/>
+</LabelGeometry>
+</LabelBlock>
+<SplineGeometry>
+<Point X="198" Y="94"/>
+</SplineGeometry>
+</Edge>
+<Edge Source="FinePending.CannotIssue.NotSubmitted.Submitted" Target="FineNotPending.CanIssue.NotSubmitted.Submitted">
+<LabelBlock>
+<SimpleIdentifier Name="PayFine"/>
+<LabelGeometry Anchor="NW">
+<Point X="0" Y="10"/>
+</LabelGeometry>
+</LabelBlock>
+</Edge>
+</EdgeList>
+</Graph>
+</SimpleComponent>
+</ComponentList>
+</Module>
